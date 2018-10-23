@@ -1,15 +1,11 @@
 # Simple systemd Service Units Files for Restic
 
-This repository consists of some simple restic systemd service unit files to manage backups with [restic](https://restic.net/). There are also other approaches to this:
+This repository contains some simple restic systemd service unit files to manage daily backups with [restic](https://restic.net/). There are also other approaches for this:
 
  * [erikw/restic-systemd-automatic-backup](https://github.com/erikw/restic-systemd-automatic-backup) 
  * [larsks/restic-systemd-units](https://github.com/larsks/restic-systemd-units)
 
-There are a few differences to these approaches:
-
- * The service files restrict the permissions, e.g. restic runs as a stand alone user with only read access to the whole file system
- * The user that runs restic is created dynamically (no sysuser.d file needed)
- * No additional scripts
+There are a few differences compared to the other approaches. The service files restrict the permissions, e.g. restic runs as a stand-alone user with only read access to the whole file system. Additionally, the user that runs restic is created dynamically (so no sysuser.d file is needed) and the cache directory is also handled in the service file itself. To use the service files, it is not required to install additional scripts.
 
 ## Prerequisites
 
@@ -28,7 +24,6 @@ git clone clone https://github.com/cdroege/systemd-restic-simple.git
 cd systemd-restic-simple
 sudo cp restic-* /etc/systemd/system/
 sudo cp -r etc/restic /etc/
-sudo chown root: /etc/restic
 sudo chmod 600 /etc/restic/restic.conf
 ```
 
@@ -37,4 +32,9 @@ To configure restic you can change the sample restic.conf. You can set every [en
 The timer unit always performs a daily backup. You can enable it as follows:
 ```
 sudo systemctl enable --now restic-backup.timer
+```
+
+To see the status of the backup you can execute the following command:
+```
+sudo journalctl -u restic-backup -f
 ```
