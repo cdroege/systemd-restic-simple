@@ -1,0 +1,24 @@
+[Unit]
+Description=Backup via restic
+After=network.target
+
+[Service]
+Type=oneshot
+
+DynamicUser=yes
+User=restic
+Group=restic
+AmbientCapabilities=CAP_DAC_READ_SEARCH
+ProtectHome=read-only
+
+IOSchedulingClass=idle
+CPUSchedulingPolicy=idle
+
+CacheDirectory=restic
+EnvironmentFile=/etc/restic/restic.conf
+
+ExecStart=/usr/bin/restic backup $BACKUP_DIRECTORY --exclude-file $EXCLUDE_FILE --cache-dir="/var/cache/restic"
+ExecStartPost=/usr/bin/restic forget $FORGET_ARGS --cache-dir="/var/cache/restic"
+
+[Install]
+WantedBy=multi-user.target

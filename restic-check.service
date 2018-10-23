@@ -1,0 +1,20 @@
+[Unit]
+Description=Backup via restic
+After=network.target
+
+[Service]
+DynamicUser=yes
+User=restic
+Group=restic
+ProtectHome=read-only
+
+IOSchedulingClass=idle
+CPUSchedulingPolicy=idle
+
+CacheDirectory=restic
+EnvironmentFile=/etc/restic/restic.conf
+
+ExecStart=/usr/bin/restic check"
+
+[Install]
+WantedBy=multi-user.target
