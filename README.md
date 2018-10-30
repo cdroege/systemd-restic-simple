@@ -20,7 +20,7 @@ There are a few differences compared to the other approaches. The service files 
 
 Copy the service files to /etc/systemd/system/ and the configuration files to /etc/restic/
 ```
-git clone clone https://github.com/cdroege/systemd-restic-simple.git
+git clone https://github.com/cdroege/systemd-restic-simple.git
 cd systemd-restic-simple
 sudo cp restic-* /etc/systemd/system/
 sudo cp -r etc/restic /etc/
