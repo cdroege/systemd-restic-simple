@@ -14,7 +14,7 @@ CPUSchedulingPolicy=idle
 CacheDirectory=restic
 EnvironmentFile=/etc/restic/restic.conf
 
-ExecStart=/usr/bin/restic check"
+ExecStart=/usr/bin/restic check
 
 [Install]
 WantedBy=multi-user.target
